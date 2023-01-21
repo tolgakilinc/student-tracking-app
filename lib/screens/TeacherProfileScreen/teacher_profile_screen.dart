@@ -1,5 +1,6 @@
 
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/UserService.dart';
 import 'package:developer_student/components/rounded_button.dart';
 import 'package:developer_student/screens/Login/login_screen.dart';
@@ -13,6 +14,7 @@ import 'package:developer_student/screens/TeacherProfileScreen/components/Editin
 import 'package:developer_student/screens/TeacherProfileScreen/components/Editing/university_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constans.dart';
 import 'components/Editing/bolum_editing.dart';

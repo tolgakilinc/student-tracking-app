@@ -109,7 +109,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             child:  Image(image: AssetImage("assets/images/myQuestion.png",), height: size.height * 0.25, ),
           ),
           SizedBox(
-            height: 18,
+            height: 50,
           ),
           Row(
             children: [

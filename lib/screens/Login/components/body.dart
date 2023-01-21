@@ -1,4 +1,6 @@
+import 'package:developer_student/Models/ProgramBase.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/UserService.dart';
 import 'package:developer_student/components/already_have_An_account_acheck.dart';
 import 'package:developer_student/components/rounded_button.dart';
@@ -8,6 +10,7 @@ import 'package:developer_student/screens/Home/home_screen.dart';
 import 'package:developer_student/screens/Signup/signup_screen.dart';
 import 'package:developer_student/screens/Teacher/teacher_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 import '../../../constans.dart';
@@ -15,10 +18,9 @@ import '../../../constans.dart';
 
 class Body extends StatelessWidget {
   Body({Key key}) : super(key: key);
-
   TextEditingController email = TextEditingController(text: "");
   TextEditingController password = TextEditingController(text: "");
-
+  Program program;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -57,12 +59,14 @@ class Body extends StatelessWidget {
                 Login(email.text, password.text).then((value){
                   if(value != null){
                     User user = value.data.first;
+
                     if(user.unvan.unvanId == 2){
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return HomeScreen(user: user,);
+                            Provider.of<LoginProvider>(context, listen:false).setUser(user);
+                            return HomeScreen(user: user );
                           },
                         ),
                       );

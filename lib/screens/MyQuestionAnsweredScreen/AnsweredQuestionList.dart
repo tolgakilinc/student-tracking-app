@@ -1,11 +1,13 @@
 import 'package:developer_student/Models/ClassBase.dart';
 import 'package:developer_student/Models/SoruNudeBase.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/SoruService.dart';
 import 'package:developer_student/screens/MyQuestionAnsweredScreen/QuestionDetailAnsweredScreen.dart';
 import 'package:developer_student/screens/QuestionDetail/QuestionDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../constans.dart';
 
@@ -36,7 +38,7 @@ class AnsweredQuestionList extends StatelessWidget {
           backgroundColor: kEerieBlackColor,
         ),
         body: FutureBuilder(
-          future: GetYanitlananSoru(user.kullaniciId, lesson.dersId),
+          future: GetYanitlananSoru(Provider.of<LoginProvider>(context, listen:false).getUser().kullaniciId, lesson.dersId),
           builder: (context, snapshot){
             if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
 
@@ -55,7 +57,7 @@ class AnsweredQuestionList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return QuestionDetailAnsweredScreen(soru: item,);
+                          return QuestionDetailAnsweredScreen(soru: item);
                         },
                       ),
                     );

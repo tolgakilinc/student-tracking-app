@@ -4,6 +4,7 @@ import 'package:developer_student/Services/DenemeService.dart';
 import 'package:developer_student/components/ToastHelper.dart';
 import 'package:developer_student/components/rounded_button.dart';
 import 'package:developer_student/screens/TestScreen/components/test_input_field.dart';
+import 'package:developer_student/screens/TestScreen/test_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constans.dart';
@@ -118,6 +119,14 @@ class _TestAddScreenState extends State<TestAddScreen> {
                     else{
                       ToastHelper().makeToastMessage("Lütfen gerekli yerleri eksiksiz doldurunuz");
                     }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return TestScreen(user: widget.user,);
+                        },
+                      ),
+                    );
                   },
                   text: "Deneme Ekle",
                 )

@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'package:developer_student/Models/ProgramBase.dart';
-import 'package:developer_student/Models/ProgramCreateDto.dart';
-import 'package:developer_student/Models/ProgramDeleteDto.dart';
 import 'package:developer_student/Models/SoruBase.dart';
 import 'package:developer_student/Models/SoruCreateDto.dart';
 import 'package:developer_student/Models/SoruNudeBase.dart';
-import 'package:developer_student/Models/UserBase.dart';
 import 'package:http/http.dart' as http;
 import 'package:developer_student/Constants/API.dart' as api;
-
+import 'package:developer_student/Models/ProgramBase.dart';
+import 'package:developer_student/Models/ProgramCreateDto.dart';
+import 'package:developer_student/Models/ProgramDeleteDto.dart';
+import 'package:developer_student/Models/UserBase.dart';
 Future<SoruBase> GetRequestSoru(String requestUri) async{
   final response = await http.get(
       Uri.parse(requestUri),

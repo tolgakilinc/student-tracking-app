@@ -67,6 +67,11 @@ Future<UserBase> Login(String email, String password) async{
   return PostRequestUser(requestUri);
 }
 
+Future<UserBase> GetAllUser() async{
+  String requestUri = "${api.baseUrl}/kullanicilar";
+  return GetRequestUser(requestUri);
+}
+
 void CreateSignUp(SignUpCreateDto signUpCreateDto){
   String requestUri = "${api.baseUrl}/kullanicilar/add";
   String encoded = jsonEncode(signUpCreateDto);

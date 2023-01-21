@@ -1,13 +1,14 @@
 import 'package:developer_student/Models/DenemeBase.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import '../../../constans.dart';
 import 'line_titles.dart';
 
 class LineChartWidget extends StatelessWidget {
 
   List<Deneme> deneme;
-  LineChartWidget({this.deneme});
+  bool isAll;
+
+  LineChartWidget({this.deneme, this.isAll = false});
 
 
   final List<Color> gradientColors = [
@@ -22,18 +23,22 @@ class LineChartWidget extends StatelessWidget {
 
     for (final item in items) {
       yield f(index, item);
-      if(index == 6) break;
-      index = index + 1;
+
+      if(isAll){
+        index = index + 1;
+      }else{
+        if(index == 10) break;
+        index = index + 1;
+      }
     }
   }
 
-//FlSpot(0, deneme[0].puan.toDouble());
   @override
   Widget build(BuildContext context){
     return LineChart(
       LineChartData(
         minX: 0,
-        maxX: 6,
+        maxX: isAll ? double.parse((deneme.length - 1).toString()) : 10,
         minY: 0,
         maxY: 500,
         titlesData: LineTitles.getTitleData(deneme),

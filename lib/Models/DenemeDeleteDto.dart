@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:developer_student/Models/UserBase.dart';
+//import 'package:developer_student/Models/UserBase.dart';
 
 DenemeDeleteDto denemeBaseFromJson(String str) => DenemeDeleteDto.fromJson(json.decode(str));
 

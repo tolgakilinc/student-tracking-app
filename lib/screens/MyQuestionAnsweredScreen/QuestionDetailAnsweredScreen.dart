@@ -1,23 +1,28 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:developer_student/Models/SoruNudeBase.dart';
 import 'package:developer_student/Models/SoruYanitBase.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/SoruYanitService.dart';
 import 'package:developer_student/components/MyCustomClipper.dart';
-import 'package:developer_student/components/buildDivider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../../constans.dart';
 
 class QuestionDetailAnsweredScreen extends StatelessWidget {
   QuestionDetailAnsweredScreen({Key key, this.soru}) : super(key: key);
   SoruNude soru;
-User user;
+  User user;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kEerieBlackColor,
+        //backgroundColor: kEerieBlackColor,
         appBar: AppBar(
           leading: Builder(
             builder: (BuildContext context) {
@@ -31,7 +36,7 @@ User user;
             },
           ),
           title: Text(
-            soru.baslik,
+            "Yanıtlanan soru : ${soru.soruId}",
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: kEerieBlackColor,
@@ -43,159 +48,102 @@ User user;
 
             SoruYanit soruYanit = snapshot.data.data.first;
 
-            return SafeArea(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: size.width,
-                      child: Column(
-                        children: [
-                          ClipPath(
-                            clipper: MyCustomClipper(),
-                            child: Container(
-                              padding: EdgeInsets.only(top: 5, left: 15),
-                              color: kChinaIvoryColor,
-                              width: double.infinity,
-                              height: 75,
-                             /* child: TextLiquidFill(
-                                loadDuration: const Duration(seconds: 2),
-                                text: "${soru.kullaniciId} ",
-                                textAlign: TextAlign.start,
-                                waveColor: Colors.black,
-                                boxWidth: 200,
-                                boxBackgroundColor: kAcikMaviColor,
-                                textStyle: TextStyle(
-                                  fontSize: 19.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                                boxHeight: 40.0,
-                              ),*/
-                            ),
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              // topRight: Radius.circular(80),
-                              //  topLeft: Radius.circular(80.0),
-                              bottomRight: Radius.circular(150.0),
-                              //   bottomLeft: Radius.circular(60)
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF123456),
-                                  border: Border.all(width: 0.3, color: Colors.black)),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                       soru.baslik,
-                                        style: TextStyle(
-                                            fontSize: 25, color: Colors.deepOrange),
-                                      ),
-                                    ),
-                                    buildDivider(),
-                                    SizedBox(
-                                      height: size.height * 0.03,
-                                    ),
-                                    Text(
-                                      "Soru:",
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w300,
-                                          color: Colors.deepOrange),
-                                    ),
-                                    Container(
-                                      color: Colors.deepOrange,
-                                      width: 50,
-                                      height:5,
-                                    ),
-                                    SizedBox(height: 15,),
-                                    Text(
-                                      "\t\t${soru.aciklama}",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w300,
-                                          color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              width: size.width,
-                              height: 250.0,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              //  bottomRight: Radius.circular(80),
-                              // topRight: Radius.circular(60),
-                              topLeft: Radius.circular(150.0),
-                              // bottomLeft: Radius.circular(80.0),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.all(45 ),
-                              color: Color(0xFF123456),
-                              width: size.width,
-                              height: 300,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Yanıt:",
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w300,
-                                          color: Colors.deepOrange),
-                                    ),
-                                    Container(
-                                      color: Colors.deepOrange,
-                                      width: 50,
-                                      height:5,
-                                    ),
-                                    SizedBox(height: 20),
-                                    Container(
-                                      height: 350,
-                                     width: size.width ,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                      ),
-                                    child: Text(
-                                        "\t\t${soruYanit.yanit}",
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                    ),
+            return Center(
+              
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.deepOrangeAccent,
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(25),bottomRight: Radius.circular(25)),
 
-                                  ],
-                                ),
+                        ),
+                        //width: 120,
+                        height: 50,
+                        margin: EdgeInsets.only(right: 40,top: 20),
+                        padding: EdgeInsets.only(left: 15),
+                       child:Row(
+                           children: [
+                             Icon(FontAwesomeIcons.user),
+                             SizedBox(width: 10,),
+                             Text("${Provider.of<LoginProvider>(context, listen:false).getUser().ad + Provider.of<LoginProvider>(context, listen:false).getUser().soyad}")
+                           ]),
+                      ),
+                      Card(
+                          margin: EdgeInsets.all(40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          elevation: 15,
+                          shadowColor: Colors.black,
+                          color: Colors.greenAccent[100],
+                          child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Column(
+
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(left: 60),
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.green[500],
+                                      radius: 85,
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage("https://assets.kompasiana.com/items/album/2022/10/14/solution-solving-problem-answer-to-hard-question-or-creativity-idea-and-innovation-help-business-success-leadership-to-overcome-difficulty-businessman-connect-question-mark-with-lightbulb-solution-6349215c4addee7f2c354b12.jpg?t=o&v=770"),
+                                        radius: 80,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 50,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(FontAwesomeIcons.circleExclamation,),
+                                      SizedBox(width: 20,),
+                                      Text(soru.baslik,textAlign: TextAlign.left,style: TextStyle(color: Colors.green[900],fontWeight: FontWeight.w700),),
+                                    ],
+                                  ),
+                                  SizedBox(height: 75,),
+                                  Row(
+                                    children: [
+                                      Icon(FontAwesomeIcons.clipboardQuestion),
+                                      SizedBox(width: 20,),
+                                      Expanded(child: AutoSizeText(soru.aciklama,style: TextStyle(color: Colors.green[900]),)),
+                                    ],
+                                  ),
+                                  SizedBox(height: 36 ,),
+                                  Container(
+                                    color: Colors.blueGrey,
+                                    width: 350,
+                                    height: 2,
+                                  ),
+                                  SizedBox(height: 36,),
+                                  Row(
+                                    children: [
+                                      Icon(FontAwesomeIcons.solidMessage),
+                                      SizedBox(width: 20,),
+                                      Expanded(
+                                        child: Text(soruYanit.yanit,style: TextStyle(color: Colors.green[900],fontWeight: FontWeight.w500),
+                                          overflow: TextOverflow.fade,
+                                          softWrap: true,),
+                                      )
+
+                                    ],
+                                  ),
+
+                                ],
                               ),
                             ),
-                          ),
-                          //    SizedBox(height: 500,),
-                          /* ClipOval(
-              child: Container(
-                color: Colors.blue,
-                width: 200.0,
-                height: 200.0,
-              ),
-            ),*/
-                        ],
-                      ),
-                    ),
-                  ));
+                          )),
+                    ],
+
+                  ),
+                ));
           },
         ),
       ),

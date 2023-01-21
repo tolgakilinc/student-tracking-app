@@ -1,4 +1,5 @@
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/components/rounded_button.dart';
 import 'package:developer_student/screens/Home/home_screen.dart';
 import 'package:developer_student/screens/Login/login_screen.dart';
@@ -8,6 +9,7 @@ import 'package:developer_student/screens/StudentProfileScreen/components/Editin
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:developer_student/components/alert_box.dart';
+import 'package:provider/provider.dart';
 import '../../constans.dart';
 import 'components/Editing/city_editing.dart';
 import 'components/Editing/class_editing.dart';
@@ -54,7 +56,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                   title: Text(
                     'Ad Soyad',
                   ),
-                  subtitle: Text("${widget.user.ad} ${widget.user.soyad}"),
+                  subtitle: Text("${Provider.of<LoginProvider>(context, listen:false).getUser().ad} ${Provider.of<LoginProvider>(context, listen:false).getUser().soyad}"),
                   trailing: Icon(
                     FontAwesomeIcons.pencil,
                     size: 18,
@@ -72,7 +74,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                 ),
                 ListTile(
                   title: Text('E-posta'),
-                  subtitle: Text(widget.user.eposta),
+                  subtitle: Text(Provider.of<LoginProvider>(context, listen:false).getUser().eposta),
                   trailing: Icon(
                     FontAwesomeIcons.pencil,
                     size: 18,
@@ -108,7 +110,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                 ),
                 ListTile(
                   title: Text('Yaş'),
-                  subtitle: Text(widget.user.yas.toString()),
+                  subtitle: Text(Provider.of<LoginProvider>(context, listen:false).getUser().yas.toString()),
                   trailing: Icon(
                     FontAwesomeIcons.pencil,
                     size: 18,
@@ -126,7 +128,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                 ),
                 ListTile(
                   title: Text('Sınıf'),
-                  subtitle: Text(widget.user.sifre),
+                  subtitle: Text(Provider.of<LoginProvider>(context, listen:false).getUser().sifre),
                   trailing: Icon(
                     FontAwesomeIcons.pencil,
                     size: 18,
@@ -144,7 +146,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                 ),
                 ListTile(
                   title: Text('Şehir'),
-                  subtitle: Text(widget.user.sehir.sehirAdi),
+                  subtitle: Text(Provider.of<LoginProvider>(context, listen:false).getUser().sehir.sehirAdi),
                   trailing: Icon(
                     FontAwesomeIcons.pencil,
                     size: 18,
@@ -162,7 +164,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                 ),
                 ListTile(
                   title: Text('Alan'),
-                  subtitle: Text(widget.user.alan.alanAdi),
+                  subtitle: Text(Provider.of<LoginProvider>(context, listen:false).getUser().alan.alanAdi),
                   trailing: Icon(
                     FontAwesomeIcons.pencil,
                     size: 18,
@@ -196,7 +198,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                         actions: [
                           ElevatedButton(
                               onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.of(context).pop();
                               },
                               child: Text(
                                 ("İptal"),

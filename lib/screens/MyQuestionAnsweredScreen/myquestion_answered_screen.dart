@@ -1,9 +1,11 @@
 import 'package:developer_student/Models/ClassBase.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/LessonService.dart';
 import 'package:developer_student/screens/MyQuestionAnsweredScreen/AnsweredQuestionList.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../constans.dart';
 
@@ -54,7 +56,7 @@ class MyQuestionAnsweredScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return AnsweredQuestionList(user: user, lesson: item,);
+                        return AnsweredQuestionList(user:Provider.of<LoginProvider>(context, listen:false).getUser(), lesson: item,);
                       },
                     ),
                   );

@@ -1,13 +1,12 @@
 import 'dart:convert';
+import 'package:developer_student/Models/SoruYanitBase.dart';
+import 'package:developer_student/Models/SoruYanitCreateDto.dart';
+import 'package:http/http.dart' as http;
+import 'package:developer_student/Constants/API.dart' as api;
 import 'package:developer_student/Models/ProgramBase.dart';
 import 'package:developer_student/Models/ProgramCreateDto.dart';
 import 'package:developer_student/Models/ProgramDeleteDto.dart';
-import 'package:developer_student/Models/SoruYanitBase.dart';
-import 'package:developer_student/Models/SoruYanitCreateDto.dart';
 import 'package:developer_student/Models/UserBase.dart';
-import 'package:http/http.dart' as http;
-import 'package:developer_student/Constants/API.dart' as api;
-
 Future<SoruYanitBase> GetRequestSoruYanit(String requestUri) async{
   final response = await http.get(
       Uri.parse(requestUri),

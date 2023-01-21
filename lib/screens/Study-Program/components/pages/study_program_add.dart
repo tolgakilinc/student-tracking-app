@@ -1,13 +1,13 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:developer_student/Models/ProgramCreateDto.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/ProgramService.dart';
 import 'package:developer_student/components/ToastHelper.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:developer_student/components/date_select.dart';
 import 'package:developer_student/components/rounded_button.dart';
 import 'package:developer_student/screens/TestScreen/components/test_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constans.dart';
 
@@ -146,7 +146,7 @@ class _StudyProgramAddScreenState extends State<StudyProgramAddScreen> {
                           baslangicTarih: "${date}T$baslangic",
                           bitisTarih: "${date}T$bitis",
                           icerik: icerik.text,
-                          kullaniciId: widget.user.kullaniciId,
+                          kullaniciId: Provider.of<LoginProvider>(context, listen:false).getUser().kullaniciId,
                           programAdi: programAdi.text,
                           tarih: date
                       ));

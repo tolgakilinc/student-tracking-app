@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:developer_student/Models/ProgramBase.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
+import 'package:developer_student/Services/ProgramService.dart';
 import 'package:developer_student/components/icon_button.dart';
 import 'package:developer_student/components/icon_button_ip.dart';
 import 'package:developer_student/components/label_sub_header.dart';
@@ -7,6 +10,8 @@ import 'package:developer_student/screens/AskQuestion/ask_question_screen.dart';
 import 'package:developer_student/screens/MyQuestions/myQuestion_screen.dart';
 import 'package:developer_student/screens/Parent/parentControl_screen.dart';
 import 'package:developer_student/screens/Net-Calculation/net_calculation_screen.dart';
+import 'package:developer_student/screens/Parent/verificationCodeScreen.dart';
+import 'package:developer_student/screens/SortScreen/SortScreen.dart';
 import 'package:developer_student/screens/Statistic-Screen/statistic_screen.dart';
 import 'package:developer_student/screens/StudentProfileScreen/student_profile_screen.dart';
 import 'package:developer_student/screens/Study-Program/study_program_screen.dart';
@@ -15,8 +20,10 @@ import 'package:developer_student/screens/TestScreen/test_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:provider/provider.dart';
 import '../../../constans.dart';
+import 'package:provider/provider.dart';
+
 
 class Body extends StatefulWidget {
   User user;
@@ -28,8 +35,10 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Padding(
@@ -68,7 +77,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                       Text(
-                        'Kalan Gün  : 120',
+                        'Kalan Gün  : 156',
                         style: TextStyle(
                             fontSize: 18,
                             height: 1.8,
@@ -240,13 +249,34 @@ class _BodyState extends State<Body> {
                         },
                       ),
                       IconButtons(
-                        nameLabel: 'Seçenekler',
+                        nameLabel: 'Sıralamam',
                         iconLabel: Icons.calendar_today,
                         press: () {
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SortScreen(user: widget.user,);
+                              },
+                            ),
+                          );
                         },
                       ),
                       IconButtons(
+                        nameLabel: 'Veli Kontrol',
+                        iconLabel: Icons.calendar_today,
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return verificationCodeScreen(user: widget.user,);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    /*  IconButtons(
                         nameLabel: 'Veli Kontrol',
                         iconLabel: Icons.calendar_today,
                         press: () {
@@ -259,7 +289,8 @@ class _BodyState extends State<Body> {
                             ),
                           );
                         },
-                      ),
+                      ),*/
+
                     ],
                   ),
                 ],
@@ -274,39 +305,71 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),*/
 
-              child: ListView(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                children: <Widget>[
-                  CarouselSlider(
-                    //Bir atlıkarınca kaydırıcı widget'ı.
-                    items: [
-                      ProgramItem(
-                        courseTime: "15:30",
-                        lessonName: "Matematik",
-                        subjectName: "Türev",
-                        teacher: "Ali Hoca",
+              /*
+              ListView(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    CarouselSlider(
+                      //Bir atlıkarınca kaydırıcı widget'ı.
+                      items: [
+                        ProgramItem(
+                          courseTime: 'as',
+                          lessonName: 'sa',
+                          subjectName: "Türev",
+                          teacher: "Ali Hoca",
+                        ),
+                        ProgramItem(
+                          courseTime: "16:00",
+                          lessonName: "Fizik",
+                          subjectName: "Hareket",
+                          teacher: "Ergül Hoca",
+                        ),
+                      ],
+                      options: CarouselOptions(
+                        height: size.height * 0.20,
+                        //height: 105.0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        viewportFraction: 0.80,
                       ),
-                      ProgramItem(
-                        courseTime: "16:00",
-                        lessonName: "Fizik",
-                        subjectName: "Hareket",
-                        teacher: "Ergül Hoca",
+                    )
+                  ],
+                )
+              * */
+
+              child: FutureBuilder(
+                future: GetProgram(Provider.of<LoginProvider>(context, listen:false).getUser().kullaniciId, "2023-01-07"),
+                builder: (context, AsyncSnapshot<ProgramBase> snapshot){
+                  if(!snapshot.hasData) return CircularProgressIndicator();
+                  List<Program> programList = snapshot.data.data;
+
+                  return CarouselSlider.builder(
+                      options: CarouselOptions(
+                        height: size.height * 0.20,
+                        //height: 105.0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        viewportFraction: 0.80,
                       ),
-                    ],
-                    options: CarouselOptions(
-                      height: size.height * 0.20,
-                      //height: 105.0,
-                      enlargeCenterPage: true,
-                      autoPlay: true,
-                      aspectRatio: 16 / 9,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: true,
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      viewportFraction: 0.80,
-                    ),
-                  )
-                ],
+                    itemCount: programList.length,
+                    itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+                        ProgramItem(
+                         courseTime: programList[itemIndex].baslangicTarih.hour.toString(),
+                          lessonName: programList[itemIndex].icerik,
+                          subjectName: programList[itemIndex].programAdi,
+                          teacher: programList[itemIndex].kullanici.ad + " " + programList[itemIndex].kullanici.soyad,
+                        )
+                  );
+                },
               ),
             ),
           ],
@@ -428,5 +491,8 @@ class ProgramItem extends StatelessWidget {
         ],
       ),
     );
+
   }
+
 }
+

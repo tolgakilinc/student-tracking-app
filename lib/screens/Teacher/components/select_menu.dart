@@ -20,8 +20,10 @@ class SelectMenu extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
         child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 100,horizontal: 11),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
@@ -30,7 +32,7 @@ class SelectMenu extends StatelessWidget {
                 "Hoşgeldiniz",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.redAccent,
                   fontSize: 45,
                   fontWeight: FontWeight.w600,
                 ),
@@ -115,7 +117,7 @@ class SelectMenu extends StatelessWidget {
             ],
           ),
           SizedBox(height: 25,),
-          Row(
+         /* Row(
             children: [
               MenuButton(
                 height:size.height * 0.18 ,
@@ -123,7 +125,7 @@ class SelectMenu extends StatelessWidget {
                 nameLabel: 'Ayarlar',
                 iconLabel: FontAwesomeIcons.gear,
 
-                /* press: () {
+                *//* press: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -132,7 +134,7 @@ class SelectMenu extends StatelessWidget {
                         },
                       ),
                     );
-                  },*/
+                  },*//*
               ),
               MenuButton(
                 height:size.height * 0.18 ,
@@ -140,7 +142,7 @@ class SelectMenu extends StatelessWidget {
                 nameLabel: 'Mesajlar',
                 iconLabel: FontAwesomeIcons.comments,
 
-                /* press: () {
+                *//* press: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -149,10 +151,10 @@ class SelectMenu extends StatelessWidget {
                         },
                       ),
                     );
-                  },*/
+                  },*//*
               ),
             ],
-          ),
+          ),*/
         ],
       ),
     ));

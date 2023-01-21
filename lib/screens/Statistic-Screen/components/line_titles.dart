@@ -17,7 +17,7 @@ class LineTitles {
             int index = value.toInt();
 
             for(int i = 0; i < denemeList.length; i++){
-              if(value.toInt() == i && i < 7){
+              if(value.toInt() == i){
                 return denemeList[i].denemeAdi;
               }
             }

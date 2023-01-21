@@ -2,9 +2,11 @@ import 'package:developer_student/Models/DenemeBase.dart';
 import 'package:developer_student/Models/DenemeDeleteDto.dart';
 import 'package:developer_student/Models/UserBase.dart';
 import 'package:developer_student/Services/DenemeService.dart';
+import 'package:developer_student/screens/Home/home_screen.dart';
 import 'package:developer_student/screens/TestScreen/page/test_add_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../constans.dart';
 
@@ -45,7 +47,14 @@ class _TestScreenState extends State<TestScreen> {
             return IconButton(
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomeScreen();
+                    },
+                  ),
+                );
               },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );
@@ -124,7 +133,7 @@ class _TestScreenState extends State<TestScreen> {
                                                           puan: element.puan,
                                                           tytNet: element.tytNet
                                                       ));
-                                                      Navigator.pop(context);
+                                                      Navigator.of(context).pop();
                                                     });
                                                   },
                                                   child: Text(
@@ -137,7 +146,7 @@ class _TestScreenState extends State<TestScreen> {
                                                 ),
                                                 ElevatedButton(
                                                   onPressed: () {
-                                                    Navigator.pop(context);
+                                                    Navigator.of(context).pop();
                                                   },
                                                   child: Text(
                                                     ("Hayır"),

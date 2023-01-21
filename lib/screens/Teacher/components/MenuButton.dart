@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constans.dart';
 
-class MenuButton extends StatelessWidget {
+class MenuButton extends StatefulWidget {
   final String nameLabel;
   final IconData iconLabel;
   final VoidCallback press;
@@ -11,18 +11,23 @@ class MenuButton extends StatelessWidget {
   const MenuButton({Key key, this.nameLabel, this.iconLabel, this.press, this.height, this.width}) : super(key: key);
 
   @override
+  _MenuButtonState createState() => _MenuButtonState();
+}
+
+class _MenuButtonState extends State<MenuButton> {
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Color _color = Colors.redAccent;
     return Container(
-
       margin: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: height,
-            width: width,
+            height: widget.height,
+            width: widget.width,
 
             // margin: EdgeInsets.only(bottom: 5),
             child: Material(
@@ -31,14 +36,23 @@ class MenuButton extends StatelessWidget {
               ),
               color: Colors.transparent,
               child: InkWell(
+                onHover: (bool hovering) {
+                  setState(() {
+                    if (hovering) {
+                      _color = Colors.purple;
+                    } else {
+                      _color = Colors.greenAccent;
+                    }
+                  });
+                },
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
-                onTap:press,
+                onTap:widget.press,
                 child: Container(
                   margin: EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: kLicoriceColor,
+                    color: _color,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
@@ -51,7 +65,7 @@ class MenuButton extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              iconLabel,
+                              widget.iconLabel,
                               color: Colors.white,
                               size: 25,
                             ),
@@ -59,7 +73,7 @@ class MenuButton extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child: Text(
-                                nameLabel,
+                                widget.nameLabel,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600,color: Colors.white),
                               ),

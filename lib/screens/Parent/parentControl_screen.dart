@@ -11,8 +11,24 @@ class ParentControlScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     /* appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+
+        backgroundColor: kEerieBlackColor,
+      ),*/
 
       backgroundColor: kEerieBlackColor,
+      /*body: UsageStatistics(),*/
       body: Body(),
     );
   }

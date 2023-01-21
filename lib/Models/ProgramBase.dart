@@ -3,16 +3,16 @@
 //     final programBase = programBaseFromJson(jsonString);
 
 import 'dart:convert';
-
-import 'package:developer_student/Models/AlanBase.dart';
+import 'package:developer_student/Models/UserBase.dart';
+/*import 'package:developer_student/Models/AlanBase.dart';
 import 'package:developer_student/Models/BolumBase.dart';
 import 'package:developer_student/Models/LiseBase.dart';
 import 'package:developer_student/Models/SehirBase.dart';
 import 'package:developer_student/Models/SinifBase.dart';
 import 'package:developer_student/Models/UniversiteBase.dart';
 import 'package:developer_student/Models/UnvanBase.dart';
-import 'package:developer_student/Models/UserBase.dart';
-import 'package:developer_student/Models/VeliBase.dart';
+
+import 'package:developer_student/Models/VeliBase.dart';*/
 
 ProgramBase programBaseFromJson(String str) => ProgramBase.fromJson(json.decode(str));
 

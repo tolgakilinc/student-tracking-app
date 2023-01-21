@@ -4,6 +4,7 @@ import 'package:developer_student/Models/ClassBase.dart';
 import 'package:developer_student/Models/DersKategoriBase.dart';
 import 'package:developer_student/Models/SoruCreateDto.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/DersKategoriService.dart';
 import 'package:developer_student/Services/LessonService.dart';
 import 'package:developer_student/Services/SoruService.dart';
@@ -17,7 +18,8 @@ import 'package:developer_student/screens/Home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:photo_view/photo_view.dart';  // kullanılabilir
+import 'package:provider/provider.dart';
 import '../../constans.dart';
 
 class AskQuestionScreen extends StatefulWidget {
@@ -301,14 +303,14 @@ class _AskQuestionState extends State<AskQuestionScreen> {
                         selectedLessons.isNotEmpty) {
                       setState(() {
                         CreateSoru(SoruCreateDto(
-                          kullaniciId: widget.user.kullaniciId,
+                          kullaniciId: Provider.of<LoginProvider>(context, listen:false).getUser().kullaniciId,
                           aciklama: aciklama.text,
                           baslik: baslik.text,
                           dersId: int.parse(selectedLessons),
                         ));
                       });
-                      ToastHelper().makeToastMessage(
-                          "Sorunuz hocalarımıza iletilmiştir. En kısa sürede geri dönüş yapılacaktır.");
+                        ToastHelper().makeToastMessage(
+                            "Sorunuz hocalarımıza iletilmiştir. En kısa sürede geri dönüş yapılacaktır.");
                     } else {
                       ToastHelper().makeToastMessage(
                           "Lütfen sorunuz için gerekli yerleri doldurunuz.");

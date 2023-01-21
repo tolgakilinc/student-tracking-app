@@ -1,3 +1,4 @@
+import 'package:developer_student/screens/scanScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../constans.dart';
@@ -25,9 +26,18 @@ class IconButtonIP extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(15)),
               color: Colors.transparent,
               child: InkWell(
-                //tıklayınca tepki veren class
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                onTap: () {}, // DAHA SONRA EKLE!!!!!!!!!!!!!!!!!!!1
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return QRViewExample();
+                      //  qr_code_scanner: ^0.6.1
+                      },
+                    ),
+                  );
+                },
                 child: Container(
                    //margin: EdgeInsets.all(5),
                   height: size.height * 0.06,

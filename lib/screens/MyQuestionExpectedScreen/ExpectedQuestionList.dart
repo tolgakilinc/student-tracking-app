@@ -13,7 +13,6 @@ class ExpectedQuestionList extends StatelessWidget {
   User user;
   Lesson lesson;
   ExpectedQuestionList({Key key, this.user, this.lesson}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +54,7 @@ class ExpectedQuestionList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return QuestionDetailScreen(soru: item,);
+                        return QuestionDetailScreen(user: user,soru: item);
                       },
                     ),
                   );

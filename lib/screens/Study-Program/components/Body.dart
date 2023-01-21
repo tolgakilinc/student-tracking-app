@@ -2,6 +2,7 @@ import 'package:developer_student/Models/ProgramBase.dart';
 import 'package:developer_student/Models/ProgramCreateDto.dart';
 import 'package:developer_student/Models/ProgramDeleteDto.dart';
 import 'package:developer_student/Models/UserBase.dart';
+import 'package:developer_student/Providers/LoginProvider.dart';
 import 'package:developer_student/Services/ProgramService.dart';
 import 'package:developer_student/screens/Study-Program/study_program_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';  //for date locale
+import 'package:provider/provider.dart';
 
 import '../../../constans.dart';
 class Body extends StatefulWidget {
@@ -74,7 +76,7 @@ class _BodyState extends State<Body> {
               height: size.height * 0.05,
             ),
             FutureBuilder(
-              future: GetProgram(widget.user.kullaniciId, DateFormat("yyyy-MM-dd").format(DateTime.now().toLocal())),
+              future: GetProgram(Provider.of<LoginProvider>(context, listen:false).getUser().kullaniciId, DateFormat("yyyy-MM-dd").format(DateTime.now().toLocal())),
               builder: (context, AsyncSnapshot snapshot){
                 if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
                 List<Program> programList = snapshot.data.data;
@@ -131,12 +133,12 @@ class _BodyState extends State<Body> {
                                                 programId: program.programId,
                                                 tarih: program.tarih.toString().replaceAll(" ", "T"),
                                                 programAdi: program.programAdi,
-                                                kullaniciId: widget.user.kullaniciId,
+                                                kullaniciId: Provider.of<LoginProvider>(context, listen:false).getUser().kullaniciId,
                                                 icerik: program.icerik,
                                                 bitisTarih: program.bitisTarih.toString().replaceAll(" ", "T"),
                                                 baslangicTarih: program.bitisTarih.toString().replaceAll(" ", "T")
                                             ));
-                                            Navigator.pop(context);
+                                            Navigator.of(context).pop();
                                           });
                                         },
                                         child: Text(
@@ -149,7 +151,7 @@ class _BodyState extends State<Body> {
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          Navigator.pop(context);
+                                         Navigator.pop(context);
                                         },
                                         child: Text(
                                           ("Hayır"),
